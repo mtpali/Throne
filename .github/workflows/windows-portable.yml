@@ -1,0 +1,87 @@
+name: MobileTina Windows portable
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-core:
+    runs-on: ubuntu-22.04
+    env:
+      DEST: ${{ github.workspace }}/deployment/windows-amd64
+      GOOS: windows
+      GOARCH: amd64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v6
+        with:
+          go-version: "1.26.7"
+          cache-dependency-path: core/server/go.sum
+      - uses: arduino/setup-protoc@v3
+        with:
+          version: "31.1"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Go protobuf generators
+        run: |
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.11
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.6.2
+      - name: Build Windows core
+        run: ./script/build_go.sh
+      - name: Pack core
+        run: tar czf artifacts.tgz ./deployment
+      - uses: actions/upload-artifact@v7
+        with:
+          name: mobiletina-core-${{ github.sha }}
+          path: artifacts.tgz
+          compression-level: 0
+
+  build-portable:
+    needs: build-core
+    runs-on: windows-latest
+    env:
+      INPUT_VERSION: 2.2.6-windows
+      DEST: ${{ github.workspace }}/deployment/windows-amd64
+      DEST_SUFFIX: windows-amd64
+      ARCH: x64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v8
+        with:
+          name: mobiletina-core-${{ github.sha }}
+          path: download-artifact
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - name: Download Qt and OpenSSL
+        shell: bash
+        run: |
+          curl -fL -o qt.7z https://github.com/throneproj/buildqt/releases/download/Qt_6.11.2/Qt_6.11.2_x64.7z
+          curl -fL -o openssl.7z https://github.com/throneproj/env_windows_legacy/releases/download/latest/openssl_x64.7z
+          7z x qt.7z
+          7z x openssl.7z
+      - name: Build application
+        shell: bash
+        run: |
+          export CMAKE_PREFIX_PATH=$PWD/Qt/lib/cmake
+          export OPENSSL_ROOT_DIR=$PWD/openssl
+          mkdir build
+          cd build
+          curl -fLso srslist.h https://raw.githubusercontent.com/throneproj/routeprofiles/rule-set/srslist.h
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+          ninja
+          cd ..
+          ./script/deploy_windows.sh
+      - name: Create portable ZIP
+        shell: pwsh
+        run: |
+          Remove-Item "$env:DEST\MobileTina.pdb" -ErrorAction SilentlyContinue
+          Compress-Archive -Path "$env:DEST\*" -DestinationPath "MobileTina-Windows-x64-portable.zip" -Force
+      - uses: actions/upload-artifact@v7
+        with:
+          name: MobileTina-Windows-x64-portable
+          path: MobileTina-Windows-x64-portable.zip
+          if-no-files-found: error
