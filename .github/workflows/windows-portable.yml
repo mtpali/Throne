@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       DEST: ${{ github.workspace }}/deployment/windows-amd64
-      GOOS: windows
-      GOARCH: amd64
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v6
@@ -31,6 +29,9 @@ jobs:
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.6.2
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
       - name: Build Windows core
+        env:
+          GOOS: windows
+          GOARCH: amd64
         run: ./script/build_go.sh
       - name: Pack core
         run: tar czf artifacts.tgz ./deployment
