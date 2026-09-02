@@ -1,4 +1,31 @@
-# Throne (Formerly Nekoray)
+# MobileTina for Windows
+
+Portable Windows client based on Throne, with the visual language and primary workflow of
+[MobileTinaVPN for Android](https://github.com/mtpali/MobileTinaVPN).
+
+This modified GPL-3.0 build keeps Throne's mature Sing-box/Xray desktop core while replacing
+the default start experience with MobileTina's two-mode interface:
+
+- **Automatic mode:** tests the current subscription, selects the lowest-latency working
+  server, sorts the manual list, and connects in one click.
+- **Manual mode:** exposes the complete server list and the original desktop management tools.
+- **Shared status language:** the original MobileTina white, yellow, blue, and red neon artwork
+  represents disconnected, testing/connecting, connected, and failed/expired states.
+- **Subscription card:** displays traffic use, quota progress, and remaining days from the
+  standard `Subscription-UserInfo` response header.
+- **Portable output:** the Windows workflow publishes a self-contained ZIP. Extract it anywhere
+  and run `MobileTina.exe`; profiles and settings remain beside the executable when writable.
+
+The desktop-only capabilities that have no Android equivalent (system proxy, Windows TUN,
+advanced routing, logs, connection inspection, and profile editors) remain available through
+the manual view and top menus.
+
+## Upstream
+
+This project is a modified distribution of [throneproj/Throne](https://github.com/throneproj/Throne)
+and preserves its GPL-3.0 license and attribution.
+
+# Throne (upstream description)
 
 Qt based Desktop cross-platform GUI proxy utility, empowered by [Sing-box](https://github.com/SagerNet/sing-box)
 

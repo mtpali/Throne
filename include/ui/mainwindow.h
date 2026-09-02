@@ -55,6 +55,7 @@ class TrayProfileSelector;
 class TrayOtpCodes;
 class TestRunner;
 class DialogVpnAuth;
+class MobileTinaHomeWidget;
 struct VpnAuthChallenge;
 
 struct VpnEndpointState {
@@ -241,6 +242,7 @@ private:
     QShortcut *shortcut_esc = new QShortcut(QKeySequence::Cancel, this);
     QThreadPool *parallelCoreCallPool = new QThreadPool(this);
     std::unique_ptr<TestRunner> testRunner;
+    QPointer<MobileTinaHomeWidget> mobileTinaHome;
     Configs_sys::CoreProcess *core_process = nullptr;
     QMutex coreProcessMutex;
     QLocalServer *core_server = nullptr;
@@ -253,6 +255,8 @@ private:
     int last_running_profile_id = -1;
     bool m_profileConnecting = false;
     bool m_profileDisconnecting = false;
+    bool m_mobileTinaSmartTesting = false;
+    bool m_mobileTinaSmartFailed = false;
     bool m_xrayGeoAssetBusy = false;
     QString traffic_update_cache;
     qint64 last_test_time = 0;
@@ -327,6 +331,10 @@ private:
 
     QList<int> get_now_selected_list();
     void refresh_startstop_button();
+    void setup_mobiletina_shell();
+    void mobiletina_smart_connect();
+    void mobiletina_ping_selected();
+    void refresh_mobiletina_ui();
 
     QList<int> get_selected_or_group();
 

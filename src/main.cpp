@@ -264,7 +264,7 @@ int main(int argc, char* argv[]) {
 #ifdef NKR_CPP_USE_APPDATA
     useAppdata = true;
 #endif
-    QApplication::setApplicationName("Throne");
+    QApplication::setApplicationName("MobileTina");
     if(useAppdata) {
         if (!appdataDir.isEmpty()) {
             wd.setPath(appdataDir);
@@ -454,7 +454,7 @@ int main(int argc, char* argv[]) {
     Configs::dataManager->RunDeferredMaintenance();
 
     if (Logging::PreviousSessionCrashed()) {
-        MW_show_log(QObject::tr("[Warn] Throne did not shut down cleanly last time. "
+        MW_show_log(QObject::tr("[Warn] MobileTina did not shut down cleanly last time. "
                                 "Diagnostics were saved to: %1").arg(Logging::LogDir()));
     }
 

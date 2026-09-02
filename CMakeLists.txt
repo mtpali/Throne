@@ -164,6 +164,7 @@ set(PROJECT_SOURCES
         src/ui/mainWindow/mainwindow_hotkeys.cpp
         src/ui/mainWindow/mainwindow_profile_lifecycle.cpp
         src/ui/mainWindow/mainwindow_autoselector.cpp
+        src/ui/mainWindow/mainwindow_mobiletina.cpp
         src/ui/mainWindow/TestRunner.cpp
         include/ui/mainWindow/MainWindowInternal.h
         include/ui/mainWindow/TestRunner.h
@@ -171,6 +172,8 @@ set(PROJECT_SOURCES
         include/ui/mainwindow.ui
         include/ui/widget/StartStopButton.hpp
         src/ui/widget/StartStopButton.cpp
+        include/ui/widget/MobileTinaHomeWidget.hpp
+        src/ui/widget/MobileTinaHomeWidget.cpp
         include/ui/widget/TrayProfileSelector.hpp
         src/ui/widget/TrayProfileSelector.cpp
         include/ui/widget/TrayOtpCodes.hpp
@@ -564,6 +567,7 @@ if (APPLE)
 endif ()
 
 set_target_properties(Throne PROPERTIES
+        OUTPUT_NAME "MobileTina"
         MACOSX_BUNDLE_ICON_FILE "Throne.icns"
         RESOURCE ${MACOSX_ICON}
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/res/MacOSXBundleInfo.plist

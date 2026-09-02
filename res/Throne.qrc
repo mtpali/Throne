@@ -22,6 +22,14 @@
         <file>icon/material/eye-off-outline.png</file>
         <file>icon/material/swap-horizontal.png</file>
     </qresource>
+    <qresource prefix="/mobiletina">
+        <file alias="white.png">mobiletina/white.png</file>
+        <file alias="blue.png">mobiletina/blue.png</file>
+        <file alias="yellow.png">mobiletina/yellow.png</file>
+        <file alias="red.png">mobiletina/red.png</file>
+        <file alias="stop.png">mobiletina/stop.png</file>
+        <file alias="fab.png">mobiletina/fab.png</file>
+    </qresource>
     <qresource prefix="/Throne">
         <file alias="Throne.png">public/Throne.png</file>
         <file alias="Dns.png">public/Dns.png</file>

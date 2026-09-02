@@ -23,6 +23,7 @@
 #include "include/ui/stats/dialog_traffic_stats.h"
 #include "include/ui/stats/dialog_runtime_stats.h"
 #include "include/ui/widget/StartStopButton.hpp"
+#include "include/ui/widget/MobileTinaHomeWidget.hpp"
 
 #include "include/configs/generate.h"
 #include "include/database/GroupsRepo.h"
@@ -269,6 +270,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         if (running != nullptr) profile_stop(false, false, true);
         else profile_start();
     });
+    setup_mobiletina_shell();
     connect(ui->tabWidget->tabBar(), &QTabBar::tabMoved, this, [=,this](int from, int to) {
         QList<int> tabOrder;
         for (int i = 0; i < ui->tabWidget->tabBar()->count(); i++) {
@@ -306,7 +308,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         }
     }
 
-    software_name = "Throne";
+    software_name = "MobileTina";
     software_core_name = "sing-box";
     if (auto dashDir = QDir("dashboard"); !dashDir.exists() && QDir().mkdir("dashboard")) {
         if (auto dashFile = QFile(":/Throne/dashboard-notice.html"); dashFile.exists() && dashFile.open(QIODevice::ReadOnly))
@@ -1110,4 +1112,3 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow() {
     delete ui;
 }
-

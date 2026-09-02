@@ -4,13 +4,13 @@ set(PLATFORM_LIBRARIES wininet wsock32 ws2_32 user32 rasapi32 iphlpapi ntdll wbe
 include(cmake/windows/generate_product_version.cmake)
 generate_product_version(
         QV2RAY_RC
-        ICON "${CMAKE_SOURCE_DIR}/res/Throne.ico"
-        NAME "Throne"
-        BUNDLE "Throne"
-        COMPANY_NAME "Throne"
-        COMPANY_COPYRIGHT "Throne"
-        FILE_DESCRIPTION "Throne"
-        ORIGINAL_FILENAME "Throne.exe"
+        ICON "${CMAKE_SOURCE_DIR}/res/MobileTina.ico"
+        NAME "MobileTina"
+        BUNDLE "MobileTina"
+        COMPANY_NAME "MobileTina"
+        COMPANY_COPYRIGHT "MobileTina contributors"
+        FILE_DESCRIPTION "MobileTina VPN for Windows"
+        ORIGINAL_FILENAME "MobileTina.exe"
         VERSION_MAJOR ${NKR_VERSION_MAJOR}
         VERSION_MINOR ${NKR_VERSION_MINOR}
         VERSION_PATCH ${NKR_VERSION_PATCH}
