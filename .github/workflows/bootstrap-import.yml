@@ -24,7 +24,7 @@ jobs:
             exit 0
           fi
           git clone --depth 1 --branch dev https://github.com/throneproj/Throne.git upstream
-          rsync -a --exclude=.git --exclude=.github/workflows/bootstrap-import.yml upstream/ ./
+          rsync -a --exclude=.git --exclude=.github/workflows upstream/ ./
           rm -rf upstream
           rm -f .github/workflows/bootstrap-import.yml
           git add -A
